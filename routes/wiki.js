@@ -5,7 +5,7 @@ const { Page } = require('../models');
 const { addPage } = require('../views');
 
 router.get('/', (req, res, next) => {
-  res.send(layout(' '));
+  res.send(layout(' ')); //update this to be something
 });
 
 router.get('/add', (req, res, next) => {
@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
 
   const page = new Page({
     title: title,
-    content: content,
+    content: content
   });
   // res.json(req.body);
 
