@@ -3,19 +3,24 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const { db } = require('./models');
 const models = require('./models');
+const layout = require('./views/layout.js');
+const wikiRouter = require('./routes/wiki');
+const userRouter = require('./routes/user');
+const path = require('path');
 
 // db.authenticate().then(() => {
 //   console.log('connected to the db');
 // });
 const app = express();
-
-app.use(express.static(__dirname + '/public'));
+app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }));
-
-const layout = require('./views/layout.js');
+app.use(express.json());
+app.use('/wiki', wikiRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
-  res.send(layout(' '));
+  res.redirect('/wiki');
 });
 
 const connect = async () => {
